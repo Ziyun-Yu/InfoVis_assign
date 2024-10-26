@@ -18,9 +18,9 @@ import { axisBottom } from 'd3-axis';
 
 function XAxis(props) {
     const { xScale, height, width, axisLabel} = props;
+    const axisRef = React.useRef(null);
     React.useEffect(() => {
         if (xScale) {
-            const axisRef = React.useRef(null);
             const axis = axisBottom(xScale);
             select(axisRef.current).call(axis);
             const isLinear = typeof xScale.domain()[0] === 'number';

@@ -18,10 +18,9 @@ import { axisBottom } from 'd3-axis';
 
 function XAxis(props) {
     const { xScale, height, width, axisLabel} = props;
-    
-    if (xScale) {
-        const axisRef = React.useRef(null);
-        React.useEffect(() => {
+    React.useEffect(() => {
+        if (xScale) {
+            const axisRef = React.useRef(null);
             const axis = axisBottom(xScale);
             select(axisRef.current).call(axis);
             const isLinear = typeof xScale.domain()[0] === 'number';
@@ -34,6 +33,7 @@ function XAxis(props) {
                     const rotationAngle = isLinear ? 0 : 70;
                     return `translate(${translateX}, 0) rotate(${rotationAngle})`;
                 });
+            }
             }, [xScale]);
 
         return <g transform={`translate(0, ${height})`}>
@@ -42,8 +42,5 @@ function XAxis(props) {
                     {axisLabel}
                 </text>
                 </g>
-    }else {
-        return <g></g>
-}
 }
 export default XAxis
